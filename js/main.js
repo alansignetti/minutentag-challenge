@@ -8,23 +8,24 @@ $(document).ready(function () {
   var orderPrice = 0;
   var orderAlphabetic = 0;
   var searching = 0;
+  var paginationSize = 9;
 
   // Obtain data API
   function getData() {
-    $("#loadingSpinner").show();
-    $("#row-container").hide();
+    showSpinner();
     $.ajax({
       type: "GET",
       url: apiUrl,
       success: function (response) {
         data = response;
-        $("#row-container").show();
-        $("#loadingSpinner").hide();
+        hideSpinner();
         showData();
         createPagination();
         searching = 0;
       },
       error: function (error) {
+        searching = 0;
+        hideSpinner();
         console.log(error);
       },
     });
@@ -35,6 +36,7 @@ $(document).ready(function () {
       newData = [];
       let valueSearched = $(this).val();
       if (!valueSearched && searching == 0) {
+        // to avoid too many requests
         searching = 1;
         getData();
       } else {
@@ -45,11 +47,10 @@ $(document).ready(function () {
         });
         if (event.keyCode == 13) {
           data = newData;
-
-          showData();
-          createPagination();
         }
       }
+      showData();
+      createPagination();
       currentPage = 1;
     });
   }
@@ -189,11 +190,10 @@ $(document).ready(function () {
 
   function createPagination() {
     var totalPages = Math.ceil(data.length / pageSize);
+    // If there is not a page, hide the pagination
 
-    // If there is only one page, hide the pagination
-    if (totalPages <= 1) {
-      $("#page-container").hide();
-    } else {
+    if (totalPages > 0) {
+      $(".col-md-6").show();
       var pagination =
         '<li class="page-item previous"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">&lt;</span></a></li>';
       for (var i = 1; i <= totalPages; i++) {
@@ -204,7 +204,7 @@ $(document).ready(function () {
             '" href="#">' +
             i +
             "</a></li>";
-        } else if (i > currentPage && i <= currentPage + 4) {
+        } else if (i > currentPage && i <= currentPage + paginationSize) {
           // Next pages
           pagination +=
             '<li class="page-item"><a class="page-link page-number" data-page="' +
@@ -240,7 +240,7 @@ $(document).ready(function () {
         $(".previous").removeClass("d-none");
       }
 
-      if (currentPage === totalPages) {
+      if (currentPage === totalPages || totalPages <= 0) {
         // Hide next button if it is the last page
         $(".next").addClass("d-none");
       } else {
@@ -287,6 +287,25 @@ $(document).ready(function () {
         createPagination();
       });
     }
+    // show not found
+    else {
+      $(".col-md-6").hide();
+      $("#notFound").show();
+    }
+  }
+
+  function showSpinner() {
+    $("#searchInput").prop("disabled", true);
+    $("#loadingSpinner").show();
+    $("#notFound").hide();
+    $("#row-container").hide();
+  }
+
+  function hideSpinner() {
+    $("#searchInput").prop("disabled", false);
+    $("#notFound").hide();
+    $("#loadingSpinner").hide();
+    $("#row-container").show();
   }
 
   getData(); // Get data from the API and display in the HTML

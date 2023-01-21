@@ -64,7 +64,40 @@ h4 {
   outline: none;
 }
 
-/* spinner */
+/* notFound */
+
+#notFound {
+  width: 90%;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.fof {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.fof h1 {
+  font-size: 50px;
+  display: inline-block;
+  padding-right: 12px;
+  animation: type 0.5s alternate infinite;
+  font-family: "Lato", sans-serif;
+  color: #888;
+}
+
+@keyframes type {
+  from {
+    box-shadow: inset -3px 0px 0px #888;
+  }
+  to {
+    box-shadow: inset -3px 0px 0px transparent;
+  }
+}
+
+/* loadingSpinner */
 
 .lds-ring {
   margin-top: 20px;
