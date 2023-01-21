@@ -1,4 +1,5 @@
 $(document).ready(function () {
+  $(this).scrollTop(0);
   var apiUrl = "https://api.wazirx.com/sapi/v1/tickers/24hr";
   var pageSize = 10; // Number of items per page
   var currentPage = 1;
@@ -247,13 +248,24 @@ $(document).ready(function () {
       }
       $(".page-number").click(function () {
         // Navigate between pages
+        $("html, body").animate(
+          {
+            scrollTop: $("html, body").get(0).scrollHeight,
+          },
+          100
+        );
         currentPage = $(this).data("page");
         showData();
         createPagination();
       });
       $(".previous").click(function () {
         // Navigate to the previous page
-
+        $("html, body").animate(
+          {
+            scrollTop: $("html, body").get(0).scrollHeight,
+          },
+          100
+        );
         if (currentPage <= 0) {
           currentPage = 1;
         } else {
@@ -265,7 +277,12 @@ $(document).ready(function () {
       $(".next").click(function () {
         // Navigate to the next page
         currentPage++;
-
+        $("html, body").animate(
+          {
+            scrollTop: $("html, body").get(0).scrollHeight,
+          },
+          100
+        );
         showData();
         createPagination();
       });

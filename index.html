@@ -45,59 +45,61 @@
     <title>Minutentag JS</title>
   </head>
 
-  <div class="container">
-    <div class="right-sort">
-      <div class="sort-by">
-        <input id="searchInput" type="text" placeholder="Search.." />
-        <span class="mr-1">Sort by: </span>
+  <body>
+    <div class="container">
+      <div class="right-sort">
+        <div class="sort-by">
+          <input id="searchInput" type="text" placeholder="Search.." />
+          <span class="mr-1">Sort by: </span>
 
-        <div id="price" class="sort-container">
-          <button class="sort-button">Price</button
-          ><i id="price-icon" class="ml-1 fa-solid fa-minus"></i>
-        </div>
+          <div id="price" class="sort-container">
+            <button class="sort-button">Price</button
+            ><i id="price-icon" class="ml-1 fa-solid fa-minus"></i>
+          </div>
 
-        <div id="alphabetic" class="sort-container">
-          <button class="sort-button">A-Z</button
-          ><i id="alphabetic-icon" class="ml-1 fa-solid fa-minus"></i>
+          <div id="alphabetic" class="sort-container">
+            <button class="sort-button">A-Z</button
+            ><i id="alphabetic-icon" class="ml-1 fa-solid fa-minus"></i>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div id="loadingSpinner" class="lds-ring">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-
-    <div class="row mt-4 content-center list-container" id="row-container">
-      <!-- here is where the data shows -->
-    </div>
-
-    <!-- pagination -->
-    <div class="row mt-4 content-center">
-      <div class="col-md-6">
-        <ul
-          class="pagination d-flex justify-content-center"
-          id="page-container"
-        >
-          <li class="page-item previous">
-            <button class="page-link" aria-label="Previous">
-              <span aria-hidden="true">&lt;</span>
-            </button>
-          </li>
-          <li class="page-item active">
-            <button class="page-link page-number" data-page="1">1</button>
-          </li>
-          <li class="page-item next">
-            <button class="page-link" aria-label="Next">
-              <span aria-hidden="true">></span>
-            </button>
-          </li>
-        </ul>
+      <div id="loadingSpinner" class="lds-ring">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
       </div>
-    </div>
-  </div>
 
-  <body></body>
+      <div class="row mt-4 content-center list-container" id="row-container">
+        <!-- here is where the data shows -->
+      </div>
+
+      <!-- pagination -->
+      <div class="row mt-4 content-center">
+        <div class="col-md-6">
+          <ul
+            class="pagination d-flex justify-content-center"
+            id="page-container"
+          >
+            <li class="page-item previous">
+              <button class="page-link" aria-label="Previous">
+                <span aria-hidden="true">&lt;</span>
+              </button>
+            </li>
+            <li class="page-item active">
+              <button class="page-link page-number" data-page="1">1</button>
+            </li>
+            <li class="page-item next">
+              <button class="page-link" aria-label="Next">
+                <span aria-hidden="true">></span>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <footer id="end"></footer>
+    </div>
+  </body>
 </html>
