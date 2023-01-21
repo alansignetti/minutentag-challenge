@@ -57,7 +57,6 @@ $(document).ready(function () {
             });
 
             if (!newData.length || newData.length < 1 || data != newData) {
-              console.log("no results");
               showNotFound();
             } else {
               hideNotFound();
