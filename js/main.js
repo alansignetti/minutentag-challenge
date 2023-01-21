@@ -10,11 +10,15 @@ $(document).ready(function () {
 
   // Obtain data API
   function getData() {
+    $("#loadingSpinner").show();
+    $("#row-container").hide();
     $.ajax({
       type: "GET",
       url: apiUrl,
       success: function (response) {
         data = response;
+        $("#row-container").show();
+        $("#loadingSpinner").hide();
         showData();
         createPagination();
         searching = 0;
