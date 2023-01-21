@@ -1,5 +1,11 @@
 html {
   scroll-behavior: smooth;
+  width: 100%;
+  height: 100%;
+}
+body {
+  height: 100%;
+  margin: 0;
 }
 
 .content-center {
@@ -7,15 +13,22 @@ html {
 }
 
 .container {
-  margin-top: 30px;
-  padding: 0 !important;
+  width: 90%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
 }
 
-.list-item-contains {
+.d-style.btn.w-100.my-2.py-3 {
   margin-bottom: 1.5em;
   border: 0;
-  box-shadow: 5px 0px 5px -1px #f6f6f6, 0px 5px 5px 0px #f6f6f4,
-    -5px 0px 5px -1px #f6f6f6, 0px -5px 5px -1px #f6f6f6;
+  background-color: rgb(251, 251, 251);
+  box-shadow: 1px -1px 36px 3px rgba(89, 89, 89, 0.29);
+  -webkit-box-shadow: 1px -1px 36px 3px rgba(89, 89, 89, 0.29);
+  -moz-box-shadow: 1px -1px 36px 3px rgba(89, 89, 89, 0.29);
   border-radius: 5px;
 }
 
@@ -24,17 +37,25 @@ html {
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }
+
+.right-sort {
+  width: 90%;
+  text-align: right;
+}
+
 .sort-by {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
-.right-sort {
-  text-align: right;
+
+.list-container {
+  width: 90%;
 }
 
-.list-container .list-group-item {
-  word-break: break-all;
+.pagination-container {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .pagination {
@@ -135,5 +156,14 @@ h4 {
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 500px) {
+  #searchInput {
+    width: 100px;
+  }
+  .list-unstyled.mb-0.col-12.col-md-4.text-dark-l1.text-90.text-left.my-4.my-md-0 {
+    text-align: center !important;
   }
 }

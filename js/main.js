@@ -130,7 +130,7 @@ $(document).ready(function () {
     for (var i = 0; i < currentData.length; i++) {
       html +=
         `
-        <div class="d-style btn   w-100 my-2 py-3 shadow-sm">
+        <div class="d-style btn   w-100 my-2 py-3">
             <div class="row align-items-center">
               <div class="col-12 col-md-4">
                 <h4 class="pt-3 text-170 text-600 text-purple-d1 letter-spacing">` +
@@ -204,7 +204,7 @@ $(document).ready(function () {
             '" href="#">' +
             i +
             "</a></li>";
-        } else if (i > currentPage && i <= currentPage + paginationSize) {
+        } else if (i > currentPage && i <= currentPage + paginationSize - 1) {
           // Next pages
           pagination +=
             '<li class="page-item"><a class="page-link page-number" data-page="' +
