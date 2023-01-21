@@ -1,0 +1,31 @@
+.content-center {
+  justify-content: center;
+}
+
+.list-item-contains {
+  margin-bottom: 1.5em;
+  border: 0;
+  box-shadow: 5px 0px 5px -1px #f6f6f6, 0px 5px 5px 0px #f6f6f4,
+    -5px 0px 5px -1px #f6f6f6, 0px -5px 5px -1px #f6f6f6;
+  border-radius: 5px;
+}
+
+.list-container {
+  /* max-height: 500px; */
+}
+
+.list-container .list-group-item {
+  word-break: break-all;
+}
+
+.pagination {
+  justify-content: center;
+}
+
+h4 {
+  text-transform: uppercase;
+}
+
+.btn-warning {
+  cursor: auto;
+}
