@@ -40,10 +40,14 @@ $(document).ready(function () {
       if (searching == 0) {
         // to avoid too many requests
         if (!valueSearched) {
+          // when empty, getdata
           searching = 1;
-          getData();
+          data = originalData;
+          hideNotFound();
+          searching = 0;
         } else {
           if (event.keyCode == 13) {
+            // when press enter finds the values on data array
             data = originalData;
             data.filter(function (element) {
               if (element.baseAsset == valueSearched) {
@@ -331,15 +335,6 @@ $(document).ready(function () {
     $("#row-container").show();
   }
 
-  function clearSearhInput() {
-    // $("#searchInput").keyup(function (event) {
-    //   if (event.key === "Backspace") {
-    //     $("#searchInput").val("");
-    //     getData();
-    //   }
-    // });
-  }
-
   getData(); // Get data from the API and display in the HTML
 
   searchByBaseAsset();
@@ -347,6 +342,4 @@ $(document).ready(function () {
   orderByPrice();
 
   orderByAlphabet();
-
-  clearSearhInput();
 });
