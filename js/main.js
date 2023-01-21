@@ -34,7 +34,7 @@ $(document).ready(function () {
   function searchByBaseAsset() {
     $("#searchInput").keyup(function (event) {
       newData = [];
-      let valueSearched = $(this).val();
+      let valueSearched = $(this).val().toLowerCase();
       if (!valueSearched && searching == 0) {
         // to avoid too many requests
         searching = 1;
