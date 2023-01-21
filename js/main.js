@@ -308,6 +308,15 @@ $(document).ready(function () {
     $("#row-container").show();
   }
 
+  function clearSearhInput() {
+    $("#searchInput").keyup(function (event) {
+      if (event.key === "Backspace") {
+        $("#searchInput").val("");
+        getData();
+      }
+    });
+  }
+
   getData(); // Get data from the API and display in the HTML
 
   searchByBaseAsset();
@@ -315,4 +324,6 @@ $(document).ready(function () {
   orderByPrice();
 
   orderByAlphabet();
+
+  clearSearhInput();
 });
