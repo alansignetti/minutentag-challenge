@@ -4,6 +4,7 @@ $(document).ready(function () {
   var pageSize = 10; // Number of items per page
   var currentPage = 1;
   var data; // API data
+  var originalData;
   var newData = [];
   var orderPrice = 0;
   var orderAlphabetic = 0;
@@ -17,7 +18,8 @@ $(document).ready(function () {
       type: "GET",
       url: apiUrl,
       success: function (response) {
-        data = response;
+        originalData = response;
+        data = originalData;
         hideSpinner();
         showData();
         createPagination();
@@ -35,18 +37,28 @@ $(document).ready(function () {
     $("#searchInput").keyup(function (event) {
       newData = [];
       let valueSearched = $(this).val().toLowerCase();
-      if (!valueSearched && searching == 0) {
+      if (searching == 0) {
         // to avoid too many requests
-        searching = 1;
-        getData();
-      } else {
-        data.filter(function (element) {
-          if (element.baseAsset == valueSearched) {
-            newData.push(element);
+        if (!valueSearched) {
+          searching = 1;
+          getData();
+        } else {
+          if (event.keyCode == 13) {
+            data = originalData;
+            data.filter(function (element) {
+              if (element.baseAsset == valueSearched) {
+                newData.push(element);
+                data = newData;
+              }
+            });
+
+            if (!newData.length || newData.length < 1 || data != newData) {
+              console.log("no results");
+              showNotFound();
+            } else {
+              hideNotFound();
+            }
           }
-        });
-        if (event.keyCode == 13) {
-          data = newData;
         }
       }
       showData();
@@ -193,7 +205,7 @@ $(document).ready(function () {
     // If there is not a page, hide the pagination
 
     if (totalPages > 0) {
-      $(".col-md-6").show();
+      // $(".col-md-6").show();
       var pagination =
         '<li class="page-item previous"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">&lt;</span></a></li>';
       for (var i = 1; i <= totalPages; i++) {
@@ -289,8 +301,7 @@ $(document).ready(function () {
     }
     // show not found
     else {
-      $(".col-md-6").hide();
-      $("#notFound").show();
+      showNotFound();
     }
   }
 
@@ -308,13 +319,25 @@ $(document).ready(function () {
     $("#row-container").show();
   }
 
+  function showNotFound() {
+    $(".col-md-6").hide();
+    $("#notFound").show();
+    $("#row-container").hide();
+  }
+
+  function hideNotFound() {
+    $(".col-md-6").show();
+    $("#notFound").hide();
+    $("#row-container").show();
+  }
+
   function clearSearhInput() {
-    $("#searchInput").keyup(function (event) {
-      if (event.key === "Backspace") {
-        $("#searchInput").val("");
-        getData();
-      }
-    });
+    // $("#searchInput").keyup(function (event) {
+    //   if (event.key === "Backspace") {
+    //     $("#searchInput").val("");
+    //     getData();
+    //   }
+    // });
   }
 
   getData(); // Get data from the API and display in the HTML
