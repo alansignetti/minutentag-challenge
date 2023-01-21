@@ -2,6 +2,11 @@
   justify-content: center;
 }
 
+.container {
+  margin-top: 30px;
+  padding: 0 !important;
+}
+
 .list-item-contains {
   margin-bottom: 1.5em;
   border: 0;
@@ -10,8 +15,18 @@
   border-radius: 5px;
 }
 
-.list-container {
-  /* max-height: 500px; */
+.filter {
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.sort-by {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.right-sort {
+  text-align: right;
 }
 
 .list-container .list-group-item {
@@ -28,4 +43,19 @@ h4 {
 
 .btn-warning {
   cursor: auto;
+}
+
+.sort-container {
+  cursor: pointer;
+}
+
+.sort-button {
+  color: #007bff;
+  text-decoration: none;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.sort-button:focus {
+  outline: none;
 }

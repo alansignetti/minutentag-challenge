@@ -3,6 +3,10 @@ $(document).ready(function () {
   var pageSize = 10; // Number of items per page
   var currentPage = 1;
   var data; // API data
+  var newData = [];
+  var orderPrice = 0;
+  var orderAlphabetic = 0;
+  var searching = 0;
 
   // Obtain data API
   function getData() {
@@ -13,10 +17,101 @@ $(document).ready(function () {
         data = response;
         showData();
         createPagination();
+        searching = 0;
       },
       error: function (error) {
         console.log(error);
       },
+    });
+  }
+
+  function searchByBaseAsset() {
+    $("#searchInput").keyup(function (event) {
+      newData = [];
+      let valueSearched = $(this).val();
+      if (!valueSearched && searching == 0) {
+        searching = 1;
+        getData();
+      } else {
+        data.filter(function (element) {
+          if (element.baseAsset == valueSearched) {
+            newData.push(element);
+          }
+        });
+        if (event.keyCode == 13) {
+          data = newData;
+
+          showData();
+          createPagination();
+        }
+      }
+      currentPage = 1;
+    });
+  }
+
+  function orderByPrice() {
+    $("#price").click(function () {
+      if (orderPrice == 2) {
+        // no filter
+        orderPrice = 0;
+        $("#price-icon").removeClass("fa-angle-up");
+        $("#price-icon").removeClass("fa-angle-down");
+
+        if ($("#searchInput").val()) {
+          searchByBaseAsset();
+        } else {
+          getData();
+        }
+      } else if (orderPrice == 1) {
+        // high to low (desc)
+        orderPrice = 2;
+        $("#price-icon").addClass("fa-angle-down");
+        data.sort((a, b) => parseFloat(b.openPrice) - parseFloat(a.openPrice));
+        showData();
+        createPagination();
+      } else {
+        // low to high (asc)
+        orderPrice = 1;
+        $("#price-icon").addClass("fa-angle-up");
+        data.sort((a, b) => parseFloat(a.openPrice) - parseFloat(b.openPrice));
+        showData();
+        createPagination();
+      }
+    });
+  }
+
+  function orderByAlphabet() {
+    $("#alphabetic").click(function () {
+      if (orderAlphabetic == 2) {
+        // no filter
+        orderAlphabetic = 0;
+        $("#alphabetic-icon").removeClass("fa-angle-up");
+        $("#alphabetic-icon").removeClass("fa-angle-down");
+
+        if ($("#searchInput").val()) {
+          searchByBaseAsset();
+        } else {
+          getData();
+        }
+      } else if (orderAlphabetic == 1) {
+        // Z-A (desc)
+        orderAlphabetic = 2;
+        $("#alphabetic-icon").addClass("fa-angle-down");
+        data.sort((a, b) =>
+          a.baseAsset !== b.baseAsset ? (a.baseAsset > b.baseAsset ? -1 : 1) : 0
+        );
+        showData();
+        createPagination();
+      } else {
+        // A-Z (asc)
+        orderAlphabetic = 1;
+        $("#alphabetic-icon").addClass("fa-angle-up");
+        data.sort((a, b) =>
+          a.baseAsset !== b.baseAsset ? (a.baseAsset < b.baseAsset ? -1 : 1) : 0
+        );
+        showData();
+        createPagination();
+      }
     });
   }
 
@@ -83,25 +178,13 @@ $(document).ready(function () {
     
           </div>
         </div>`;
-      //   html += '<li class="list-group-item">';
-      //   html += "<p>Symbol: " + currentData[i].symbol + "</p>";
-      //   html += "<p>Base Asset: " + currentData[i].baseAsset + "</p>";
-      //   html += "<p>Quote Asset: " + currentData[i].quoteAsset + "</p>";
-      //   html += "<p>Open Price: " + currentData[i].openPrice + "</p>";
-      //   html += "<p>Low Price: " + currentData[i].lowPrice + "</p>";
-      //   html += "<p>High Price: " + currentData[i].highPrice + "</p>";
-      //   html += "<p>Last Price: " + currentData[i].lastPrice + "</p>";
-      //   html += "<p>Volume: " + currentData[i].volume + "</p>";
-      //   html += "<p>Bid Price: " + currentData[i].bidPrice + "</p>";
-      //   html += "<p>Ask Price: " + currentData[i].askPrice + "</p>";
-      //   html += "<p>Timestamp: " + currentData[i].at + "</p>";
-      //   html += "</li>";
     }
     $(".list-container").html(html);
   }
 
   function createPagination() {
     var totalPages = Math.ceil(data.length / pageSize);
+
     // If there is only one page, hide the pagination
     if (totalPages <= 1) {
       $("#page-container").hide();
@@ -116,7 +199,7 @@ $(document).ready(function () {
             '" href="#">' +
             i +
             "</a></li>";
-        } else if (i > currentPage && i <= currentPage + 6) {
+        } else if (i > currentPage && i <= currentPage + 4) {
           // Next pages
           pagination +=
             '<li class="page-item"><a class="page-link page-number" data-page="' +
@@ -166,15 +249,19 @@ $(document).ready(function () {
       });
       $(".previous").click(function () {
         // Navigate to the previous page
-        currentPage--;
-        console.log(currentPage);
+
+        if (currentPage <= 0) {
+          currentPage = 1;
+        } else {
+          currentPage--;
+        }
         showData();
         createPagination();
       });
       $(".next").click(function () {
         // Navigate to the next page
         currentPage++;
-        console.log(currentPage);
+
         showData();
         createPagination();
       });
@@ -182,4 +269,10 @@ $(document).ready(function () {
   }
 
   getData(); // Get data from the API and display in the HTML
+
+  searchByBaseAsset();
+
+  orderByPrice();
+
+  orderByAlphabet();
 });

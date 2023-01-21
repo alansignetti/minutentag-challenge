@@ -10,6 +10,25 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+
     <link
       rel="stylesheet"
       href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css"
@@ -26,7 +45,25 @@
   </head>
 
   <div class="container">
-    <div class="row mt-4 content-center list-container"></div>
+    <div class="right-sort">
+      <div class="sort-by">
+        <input id="searchInput" type="text" placeholder="Search.." />
+        <span class="mr-1">Sort by: </span>
+
+        <div id="price" class="sort-container">
+          <button class="sort-button">Price</button
+          ><i id="price-icon" class="ml-1 fa-solid fa-minus"></i>
+        </div>
+
+        <div id="alphabetic" class="sort-container">
+          <button class="sort-button">A-Z</button
+          ><i id="alphabetic-icon" class="ml-1 fa-solid fa-minus"></i>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-4 content-center list-container">
+      <!-- here is where the data shows -->
+    </div>
 
     <!-- pagination -->
     <div class="row mt-4 content-center">
@@ -36,17 +73,17 @@
           id="page-container"
         >
           <li class="page-item previous">
-            <a class="page-link" href="#" aria-label="Previous">
+            <button class="page-link" aria-label="Previous">
               <span aria-hidden="true">&lt;</span>
-            </a>
+            </button>
           </li>
           <li class="page-item active">
-            <a class="page-link page-number" data-page="1" href="#">1</a>
+            <button class="page-link page-number" data-page="1">1</button>
           </li>
           <li class="page-item next">
-            <a class="page-link" href="#" aria-label="Next">
+            <button class="page-link" aria-label="Next">
               <span aria-hidden="true">></span>
-            </a>
+            </button>
           </li>
         </ul>
       </div>
